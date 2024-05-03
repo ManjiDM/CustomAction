@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
+echo "ENTRYPOINT start."
 
 if [ -n "$GITHUB_EVENT_PATH" ];
 then
+    echo "GITHUB_EVENT_PATH"
     EVENT_PATH=$GITHUB_EVENT_PATH
 elif [ -f ./sample_push_event.json ];
 then
@@ -16,11 +18,14 @@ fi
 env
 jq . < $EVENT_PATH
 
+
 # if keyword is found
 if jq '.commits[].message, .head_commit.message' < $EVENT_PATH | grep -i -q "$*";
 then
     # do something
     VERSION=$(date +%F.%s)
+
+    echo "VERSION: ${VERSION}"
 
     # DATA="$(printf '{"tag_name":"v%s",' $VERSION)"
     # DATA="${DATA} $(printf '"target_commitish":"master",')"
