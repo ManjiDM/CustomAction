@@ -1,0 +1,10 @@
+name: 'Releaser XPTO'
+description: 'Creates branches based on a keyword'
+
+runs: 
+  using: 'docker'
+  image: 'Dockerfile'
+
+branding:
+  icon: 'gift'
+  color: 'blue'      
